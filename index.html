@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM4Ed 2026 — Workshop sur les LLMs en Éducation</title>
+  <meta name="description" content="Workshop LLM4Ed 2026 : Usage des Grands Modèles de Langage en Éducation, dans le cadre des RJC EIAH 2026, 9–12 juin 2026, Grenoble." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #1b2d45;
+      --navy-mid:    #243b57;
+      --steel:       #2c5f8a;
+      --steel-light: #deeaf5;
+      --gold:        #b8912e;
+      --white:       #ffffff;
+      --off-white:   #f6f7f9;
+      --border:      #d4dae3;
+      --text:        #2c3a4a;
+      --muted:       #566577;
+      --radius:      3px;
+      --max-w:       980px;
+      --trans:       .2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.85;
+      font-size: 18.5px;
+      font-weight: 400;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Raleway', 'Segoe UI', sans-serif;
+      line-height: 1.25;
+      color: var(--navy);
+    }
+
+    p { margin-bottom: .9rem; }
+    p:last-child { margin-bottom: 0; }
+
+    a { color: var(--steel); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Navigation ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--navy);
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 54px;
+    }
+
+    .nav-brand {
+      color: var(--white);
+      font-family: 'Raleway', 'Segoe UI', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,.78);
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      padding: .45rem .7rem;
+      border-radius: var(--radius);
+      transition: color var(--trans), background var(--trans);
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+      background: rgba(255,255,255,.10);
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 60%, #1f3d60 100%);
+      color: var(--white);
+      padding: 5.5rem 2rem 5.5rem;
+      text-align: center;
+    }
+
+    #hero::after {
+      content: '';
+      display: block;
+      height: 3px;
+      margin-top: 3rem;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      border: 1px solid rgba(184,145,46,.55);
+      color: #d4b060;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: .3rem 1.1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    #hero h1 {
+      font-size: clamp(2.3rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -.5px;
+      color: var(--white);
+    }
+
+    #hero h1 em {
+      display: block;
+      font-style: normal;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 300;
+      opacity: .80;
+      margin-top: .55rem;
+      letter-spacing: .3px;
+    }
+
+    .hero-meta {
+      margin-top: 2.2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .93rem;
+      opacity: .88;
+    }
+
+    .hero-meta-item svg { width: 14px; height: 14px; fill: var(--gold); flex-shrink: 0; }
+    .hero-meta-item strong { font-weight: 700; color: #e2cc88; }
+
+    .hero-divider { width: 1px; height: 16px; background: rgba(255,255,255,.22); }
+
+    .hero-cta {
+      margin-top: 2.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: .72rem 2rem;
+      font-size: .84rem;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: background var(--trans), color var(--trans), box-shadow var(--trans);
+      cursor: pointer;
+    }
+
+    .btn:hover { text-decoration: none; }
+
+    .btn-gold { background: var(--gold); color: var(--navy); }
+    .btn-gold:hover { background: #cfa03a; box-shadow: 0 4px 16px rgba(184,145,46,.4); }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,.86);
+      border: 1px solid rgba(255,255,255,.42);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.10); color: var(--white); }
+
+    /* ── Sections ── */
+    section { padding: 5rem 2rem; }
+    section:nth-child(even) { background: var(--off-white); }
+    .container { max-width: var(--max-w); margin: 0 auto; }
+
+    .section-header { margin-bottom: 2.5rem; }
+
+    .section-label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: .45rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      font-weight: 700;
+      color: var(--navy);
+      border-left: 3px solid var(--gold);
+      padding-left: .9rem;
+    }
+
+    .section-lead {
+      margin-top: 1.1rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* ── À propos ── */
+    .about-prose {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.9;
+      text-align: justify;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+
+    .about-prose + .about-prose { margin-top: .9rem; }
+
+    .about-highlight {
+      border-left: 3px solid var(--steel);
+      background: var(--steel-light);
+      padding: 1.3rem 1.7rem;
+      margin: 2rem 0;
+      font-size: 1.05rem;
+      color: var(--navy);
+      line-height: 1.85;
+      text-align: justify;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+
+    .about-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 640px) { .about-cols { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+    .about-col h3 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--steel);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: .5rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-col p { font-size: .98rem; color: var(--muted); }
+
+    /* ── Thématiques ── */
+    /* ── Thématiques ── */
+    .theme-axe {
+      margin-bottom: 3.5rem;
+    }
+
+    .theme-axe-title {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: .65rem;
+      margin-bottom: .4rem;
+      letter-spacing: .1px;
+    }
+
+    .theme-axe-subtitle {
+      font-size: .93rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 1.3rem;
+    }
+
+    .theme-axe ul {
+      list-style: none;
+      padding: 0;
+      columns: 2;
+      column-gap: 3rem;
+    }
+
+    @media (max-width: 640px) { .theme-axe ul { columns: 1; } }
+
+    .theme-axe li {
+      font-size: .98rem;
+      color: var(--muted);
+      padding: .35rem 0 .35rem 1.2rem;
+      position: relative;
+      break-inside: avoid;
+      line-height: 1.65;
+    }
+
+    .theme-axe li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .9rem;
+      width: 5px;
+      height: 1px;
+      background: var(--steel);
+    }
+
+    /* ── Hors périmètre ── */
+    .hors-section {
+      margin-top: 3.5rem;
+      padding: 1.6rem 1.8rem;
+      background: #fef9f0;
+      border: 1px solid #e8d08a;
+      border-left: 3px solid #b8912e;
+    }
+
+    .hors-section-title {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8a6a10;
+      margin-bottom: .9rem;
+    }
+
+    .hors-section p {
+      font-size: .97rem;
+      color: #6a5020;
+      margin-bottom: .9rem;
+    }
+
+    .hors-section ul { list-style: none; padding: 0; }
+
+    .hors-section li {
+      font-size: .97rem;
+      color: #5c4418;
+      padding: .35rem 0 .35rem 1.2rem;
+      position: relative;
+      line-height: 1.65;
+      border-bottom: 1px solid #f0dfa0;
+    }
+
+    .hors-section li:last-child { border-bottom: none; }
+
+    .hors-section li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .9rem;
+      width: 5px;
+      height: 1px;
+      background: #b8912e;
+    }
+
+    /* ── Programme ── */
+    .programme-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    .programme-table th {
+      background: var(--navy);
+      color: var(--white);
+      text-align: left;
+      padding: .8rem 1.2rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .programme-table td {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .programme-table tr:last-child td { border-bottom: none; }
+    .programme-table tbody tr:nth-child(even) td { background: var(--off-white); }
+
+    .prog-dur {
+      white-space: nowrap;
+      font-weight: 700;
+      color: var(--steel);
+      width: 110px;
+      font-size: .95rem;
+    }
+
+    .prog-title-cell { font-weight: 600; color: var(--navy); font-size: 1rem; }
+    .prog-desc-cell  { font-size: .93rem; color: var(--muted); margin-top: .3rem; line-height: 1.7; }
+
+    .pause-row td {
+      background: #e8ecf1 !important;
+      color: var(--muted);
+      text-align: center;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: .55rem 1.2rem;
+    }
+
+    /* ── Soumission ── */
+    .soumission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .sub-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--steel);
+      padding: 1.7rem 1.6rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .sub-card-label {
+      display: block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: .6rem;
+    }
+
+    .sub-card h3 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .sub-card p { font-size: .97rem; color: var(--muted); line-height: 1.8; }
+
+    .sub-card ul { list-style: none; padding: 0; margin-top: .5rem; }
+    .sub-card li {
+      font-size: .96rem;
+      color: var(--muted);
+      padding: .38rem 0 .38rem 1.1rem;
+      border-bottom: 1px solid var(--off-white);
+      position: relative;
+      line-height: 1.6;
+    }
+    .sub-card li:last-child { border-bottom: none; }
+    .sub-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .93rem;
+      width: 5px;
+      height: 1px;
+      background: var(--steel);
+    }
+
+    .mail-list { margin-top: 1rem; display: flex; flex-direction: column; gap: .5rem; }
+    .mail-list a {
+      font-family: 'Courier New', monospace;
+      font-size: .9rem;
+      color: var(--steel);
+      font-weight: 600;
+      background: var(--steel-light);
+      display: inline-block;
+      padding: .3rem .75rem;
+    }
+
+    /* ── Dates ── */
+    .dates-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    .dates-table th {
+      background: var(--navy);
+      color: var(--white);
+      text-align: left;
+      padding: .8rem 1.3rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .dates-table td {
+      padding: 1.1rem 1.3rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .dates-table tr:last-child td { border-bottom: none; }
+    .dates-table tbody tr:nth-child(even) td { background: var(--off-white); }
+
+    .date-event { font-weight: 600; color: var(--navy); }
+    .date-val   { font-weight: 700; color: var(--steel); }
+    .date-note  { font-size: .9rem; color: var(--muted); margin-top: .1rem; }
+
+    /* ── Organisateurs ── */
+    .org-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    .org-table th {
+      background: var(--navy);
+      color: var(--white);
+      text-align: left;
+      padding: .8rem 1.3rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .org-table td {
+      padding: 1rem 1.3rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .org-table tr:last-child td { border-bottom: none; }
+    .org-table tbody tr:nth-child(even) td { background: var(--off-white); }
+
+    .org-name  { font-weight: 700; color: var(--navy); }
+    .org-affil { font-size: .9rem; color: var(--muted); margin-top: .1rem; }
+    .org-mail  { font-size: .88rem; font-family: 'Courier New', monospace; margin-top: .25rem; }
+
+    /* ── Inscription ── */
+    .inscription-panel {
+      background: var(--navy);
+      color: var(--white);
+      padding: 3rem 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 640px) {
+      .inscription-panel { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+    }
+
+    .inscription-panel h3 {
+      font-size: 1.6rem;
+      margin-bottom: .9rem;
+      color: var(--white);
+    }
+
+    .inscription-panel p {
+      font-size: 1rem;
+      opacity: .85;
+      line-height: 1.85;
+    }
+
+    .inscription-checklist {
+      list-style: none;
+      margin-top: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .inscription-checklist li {
+      font-size: .95rem;
+      opacity: .82;
+      display: flex;
+      align-items: baseline;
+      gap: .65rem;
+    }
+
+    .inscription-checklist li::before {
+      content: '\2014';
+      color: #c9b060;
+      flex-shrink: 0;
+    }
+
+    .inscription-aside {
+      text-align: center;
+      border-left: 1px solid rgba(255,255,255,.2);
+      padding-left: 3.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .inscription-aside { border-left: none; border-top: 1px solid rgba(255,255,255,.2); padding-left: 0; padding-top: 2rem; }
+    }
+
+    .inscription-aside p {
+      font-size: .88rem;
+      opacity: .7;
+      margin-bottom: 1.2rem;
+      max-width: 180px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-gold-lg {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: .85rem 2rem;
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: background var(--trans), box-shadow var(--trans);
+      white-space: nowrap;
+    }
+
+    .btn-gold-lg:hover { background: #cfa03a; box-shadow: 0 4px 16px rgba(184,145,46,.4); text-decoration: none; }
+
+    /* ── Contact ── */
+    .contact-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    .contact-table th {
+      background: var(--navy);
+      color: var(--white);
+      text-align: left;
+      padding: .8rem 1.3rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .contact-table td {
+      padding: 1rem 1.3rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .contact-table tr:last-child td { border-bottom: none; }
+    .contact-table tbody tr:nth-child(even) td { background: var(--off-white); }
+
+    .c-name  { font-weight: 700; color: var(--navy); }
+    .c-affil { font-size: .9rem; color: var(--muted); margin-top: .1rem; }
+    .c-mail  { font-size: .88rem; font-family: 'Courier New', monospace; margin-top: .3rem; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      border-top: 3px solid var(--gold);
+      color: rgba(255,255,255,.60);
+      text-align: center;
+      padding: 2.2rem 2rem;
+      font-size: .88rem;
+      line-height: 1.85;
+    }
+
+    footer strong { color: rgba(255,255,255,.88); }
+    footer a { color: #8dbde8; }
+    footer a:hover { color: var(--white); }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      section { padding: 3.5rem 1.2rem; }
+      .programme-table, .dates-table, .org-table, .contact-table { font-size: .93rem; }
+      .prog-dur { width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+<nav aria-label="Navigation principale">
+  <div class="nav-inner">
+    <span class="nav-brand">LLM4Ed 2026</span>
+    <ul class="nav-links" role="list">
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#appel">Appel à contributions</a></li>
+      <li><a href="#programme">Programme</a></li>
+      <li><a href="#dates">Dates clés</a></li>
+      <li><a href="#organisateurs">Organisateurs</a></li>
+      <li><a href="#inscription">Inscription</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header id="hero" role="banner">
+  <div class="container">
+    <div class="hero-eyebrow">Workshop &mdash; RJC EIAH 2026</div>
+    <h1>
+      LLM4Ed
+      <em>Grands Modèles de Langage pour l'Éducation</em>
+    </h1>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5C3.9 4 3 4.9 3 6v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+        <span><strong>9 – 12 juin 2026</strong></span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>Grenoble, France</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V16c0 3 4 5 7 5s7-2 7-5v-4.82L22 9 12 3zm6 12.27C18 17.42 15.31 19 12 19s-6-1.58-6-3.73v-3.6l6 3.28 6-3.28v3.6z"/></svg>
+        <span>Dans le cadre des <strong>RJC EIAH 2026</strong></span>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="https://rjc-eiah2026.sciencesconf.org" target="_blank" rel="noopener" class="btn btn-gold">S'inscrire — RJC EIAH 2026</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ À PROPOS ═══════════════════ -->
+<section id="apropos">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Présentation</span>
+      <h2 class="section-title">À propos du workshop</h2>
+    </div>
+
+    <p class="about-prose">
+      LLM4Ed est un workshop francophone qui réunit la communauté des Environnements Informatiques pour l'Apprentissage Humain (EIAH) autour des usages, des méthodes d'évaluation et des enjeux des Grands Modèles de Langage (LLM) en contexte éducatif. Il se déroule du <strong>9 au 12 juin 2026</strong> à Grenoble, dans le cadre des <strong>11<sup>es</sup> Rencontres Jeunes Chercheurs en EIAH (RJC EIAH 2026)</strong>, conférence biennale francophone organisée sous l'égide de l'ATIEF.
+    </p>
+
+    <div class="about-highlight">
+      Ce workshop s'adresse à toute personne intéressée par l'intersection entre l'intelligence artificielle et l'éducation — chercheurs, doctorants, enseignants, ingénieurs pédagogiques et praticiens. <strong>Aucune expertise préalable en LLM n'est nécessaire pour participer, et aucune soumission d'article n'est requise pour assister au workshop.</strong> Tous les niveaux d'expérience sont les bienvenus.
+    </div>
+
+    <div class="about-cols">
+      <div class="about-col">
+        <h3>Objectif et format</h3>
+        <p>Le workshop vise à créer un espace d'échange et de réflexion collective sur les usages émergents des LLMs en éducation. La journée alterne présentations de travaux, revue systématique de la littérature et ateliers en sous-groupes, autour de quatre questions de recherche structurantes qui seront révélées le jour même.</p>
+      </div>
+      <div class="about-col">
+        <h3>Résultats attendus</h3>
+        <p>À l'issue du workshop, les participants co-construisent des mind maps thématiques et une synthèse collective des priorités de recherche identifiées. L'objectif est de dégager des perspectives partagées sur les défis scientifiques et sociétaux que pose l'usage des LLMs en contexte éducatif.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ APPEL À CONTRIBUTIONS ═══════════════════ -->
+<section id="appel">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Appel à contributions</span>
+      <h2 class="section-title">Thématiques et soumission</h2>
+      <p class="section-lead">
+        Le workshop s'articule autour de trois axes thématiques. Les contributions relevant des sous-thèmes ci-dessous sont encouragées. La participation est ouverte à tous sans soumission préalable.
+      </p>
+    </div>
+
+    <div class="theme-axe">
+      <div class="theme-axe-title">Axe 1 — Usage des LLMs en éducation</div>
+      <div class="theme-axe-subtitle">Intégration, pratiques et retours d'expérience</div>
+      <ul>
+        <li>Tuteurs virtuels et agents conversationnels basés sur les LLMs</li>
+        <li>Génération automatique de contenus pédagogiques (exercices, résumés, plans de cours…)</li>
+        <li>Rétroaction automatique sur les productions des apprenants</li>
+        <li>Personnalisation et adaptation des parcours d'apprentissage</li>
+        <li>LLMs comme outils d'aide à l'enseignant (préparation, correction…)</li>
+        <li>Retours d'expérience et études de cas en contexte écologique, etc.</li>
+      </ul>
+    </div>
+
+    <div class="theme-axe">
+      <div class="theme-axe-title">Axe 2 — Évaluation des systèmes LLM pour tâches éducatives</div>
+      <div class="theme-axe-subtitle">Méthodes, métriques et protocoles</div>
+      <ul>
+        <li>Protocoles et métriques d'évaluation de la qualité pédagogique des LLMs</li>
+        <li>Comparaison de LLMs sur des tâches éducatives spécifiques</li>
+        <li>Études empiriques impliquant des apprenants réels</li>
+        <li>Évaluation des biais et erreurs factuelles dans les contenus générés</li>
+        <li>Revues systématiques de la littérature sur les LLMs en éducation</li>
+        <li>Construction de benchmarks et jeux de données à vocation éducative, etc.</li>
+      </ul>
+    </div>
+
+    <div class="theme-axe">
+      <div class="theme-axe-title">Axe 3 — Enjeux éthiques, sociaux et épistémologiques</div>
+      <div class="theme-axe-subtitle">Éthique, littératie IA et implications sociétales</div>
+      <ul>
+        <li>Éthique et responsabilité dans le déploiement des LLMs en milieu scolaire</li>
+        <li>Intégrité académique et détection de contenu généré par IA</li>
+        <li>Protection des données, vie privée et conformité réglementaire (RGPD)</li>
+        <li>Développement de la littératie IA chez les apprenants et enseignants</li>
+        <li>Équité, accessibilité et fracture numérique</li>
+        <li>Souveraineté numérique et dépendance aux outils propriétaires, etc.</li>
+      </ul>
+    </div>
+
+    <div class="hors-section">
+      <div class="hors-section-title">Hors périmètre</div>
+      <p>Les contributions suivantes ne relèvent pas du périmètre de ce workshop :</p>
+      <ul>
+        <li>Travaux purement techniques sans dimension éducative (entraînement de modèles, optimisation d'architectures, RLHF, fine-tuning non appliqué à l'éducation)</li>
+        <li>Benchmarks généraux de performance des LLMs sans lien avec des tâches ou populations éducatives</li>
+        <li>Travaux de traitement automatique du langage sans lien avec l'apprentissage humain ou l'enseignement</li>
+        <li>Applications LLMs hors champ éducatif sans transposition pédagogique explicite</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:3.5rem;">
+      <h3 style="font-family:'Source Sans 3',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--steel);border-bottom:1px solid var(--border);padding-bottom:.5rem;margin-bottom:2rem;">Modalités de soumission</h3>
+      <p style="font-size:1rem;color:var(--muted);margin-bottom:1.8rem;">Les auteurs souhaitant présenter leurs travaux sont invités à soumettre une description courte selon les modalités ci-dessous. <strong style="color:var(--navy);">Aucune soumission n'est requise pour assister au workshop.</strong></p>
+      <div class="soumission-grid">
+        <div class="sub-card">
+          <span class="sub-card-label">Format</span>
+          <h3>Description de présentation</h3>
+          <ul>
+            <li>2 pages de description (hors références)</li>
+            <li>Format : <strong>PDF</strong></li>
+            <li>Contenu attendu : contexte, problématique, approche, résultats préliminaires</li>
+          </ul>
+        </div>
+
+        <div class="sub-card">
+          <span class="sub-card-label">Envoi</span>
+          <h3>Dépôt par courriel</h3>
+          <p>Adresser la soumission par courriel aux deux contacts suivants :</p>
+          <div class="mail-list">
+            <a href="mailto:leo.nebel@lip6.fr">leo.nebel@lip6.fr</a>
+            <a href="mailto:chloe.conrad@etu.univ-lyon1.fr">chloe.conrad@etu.univ-lyon1.fr</a>
+          </div>
+        </div>
+
+        <div class="sub-card">
+          <span class="sub-card-label">Sélection</span>
+          <h3>Évaluation et notification</h3>
+          <p>Les soumissions sont évaluées par le comité d'organisation selon la pertinence thématique, la clarté et l'intérêt pour la communauté. Les notifications sont envoyées au plus tard le <strong>18 mai 2026</strong>. Les travaux retenus font l'objet d'un exposé oral de 20 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROGRAMME ═══════════════════ -->
+<section id="programme">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Organisation de la journée</span>
+      <h2 class="section-title">Programme prévisionnel</h2>
+      <p class="section-lead">
+        La journée est structurée en deux temps complémentaires : une séquence de présentations et de synthèse, suivie d'une phase interactive d'ateliers en sous-groupes.
+      </p>
+    </div>
+
+    <table class="programme-table" aria-label="Programme du workshop">
+      <thead>
+        <tr>
+          <th>Durée</th>
+          <th>Séquence</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="prog-dur">15 min</td>
+          <td><div class="prog-title-cell">Introduction et ouverture</div></td>
+          <td><div class="prog-desc-cell">Présentation du workshop, de son contexte et de ses objectifs. Annonce de l'ordre du jour, introduction des intervenants et des quatre questions de recherche qui structureront les échanges.</div></td>
+        </tr>
+        <tr>
+          <td class="prog-dur">3 &times; 20 min</td>
+          <td><div class="prog-title-cell">Présentations de travaux</div></td>
+          <td><div class="prog-desc-cell">Trois présentations courtes issues des soumissions sélectionnées, suivies chacune d'une brève période de questions.</div></td>
+        </tr>
+        <tr>
+          <td class="prog-dur">15 min</td>
+          <td><div class="prog-title-cell">Synthèse transversale — Partie I</div></td>
+          <td><div class="prog-desc-cell">Mise en perspective des présentations : identification de convergences, de tensions et de fils conducteurs entre les travaux exposés.</div></td>
+        </tr>
+        <tr class="pause-row">
+          <td colspan="3">Pause</td>
+        </tr>
+        <tr>
+          <td class="prog-dur">15 min</td>
+          <td><div class="prog-title-cell">Revue systématique de la littérature</div></td>
+          <td><div class="prog-desc-cell">Présentation d'une revue systématique portant sur l'utilisation de l'IA et les méthodes d'évaluation dans les environnements éducatifs.</div></td>
+        </tr>
+        <tr>
+          <td class="prog-dur">5 min</td>
+          <td><div class="prog-title-cell">Questions et discussion</div></td>
+          <td><div class="prog-desc-cell">Échanges avec la salle sur les résultats et implications de la revue systématique.</div></td>
+        </tr>
+        <tr>
+          <td class="prog-dur">~40 min</td>
+          <td><div class="prog-title-cell">Ateliers en sous-groupes</div></td>
+          <td><div class="prog-desc-cell">Les participants se répartissent en sous-groupes selon le nombre de présents. Chaque groupe travaille sur une thématique de discussion, puis les groupes se succèdent à tour de rôle pour partager leurs réflexions. Chaque groupe produit une mind map collaborative qui servira de support à la restitution plénière.</div></td>
+        </tr>
+        <tr>
+          <td class="prog-dur">15 – 20 min</td>
+          <td><div class="prog-title-cell">Restitutions en séance plénière</div></td>
+          <td><div class="prog-desc-cell">Présentation des synthèses par groupe ; échanges croisés sur les thématiques explorées.</div></td>
+        </tr>
+        <tr>
+          <td class="prog-dur">10 min</td>
+          <td><div class="prog-title-cell">Conclusion et perspectives</div></td>
+          <td><div class="prog-desc-cell">Bilan du workshop, identification collective des pistes de recherche prioritaires et discussion des prochaines étapes pour la communauté.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ DATES CLÉS ═══════════════════ -->
+<section id="dates">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Calendrier</span>
+      <h2 class="section-title">Dates clés</h2>
+    </div>
+
+    <table class="dates-table" aria-label="Calendrier du workshop">
+      <thead>
+        <tr>
+          <th>Échéance</th>
+          <th>Date</th>
+          <th>Précisions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="date-event">Date limite de soumission</div></td>
+          <td><div class="date-val">3 mai 2026</div></td>
+          <td><div class="date-note">Dépôt par courriel uniquement</div></td>
+        </tr>
+        <tr>
+          <td><div class="date-event">Notification aux auteurs</div></td>
+          <td><div class="date-val">18 mai 2026</div></td>
+          <td><div class="date-note">Réponse par courriel</div></td>
+        </tr>
+        <tr>
+          <td><div class="date-event">Workshop LLM4Ed</div></td>
+          <td><div class="date-val">9 – 12 juin 2026</div></td>
+          <td><div class="date-note">Date précise dans le programme RJC EIAH à confirmer</div></td>
+        </tr>
+        <tr>
+          <td><div class="date-event">Conférence RJC EIAH 2026</div></td>
+          <td><div class="date-val">9 – 12 juin 2026</div></td>
+          <td><div class="date-note">Grenoble, France &mdash; <a href="https://rjc-eiah2026.sciencesconf.org" target="_blank" rel="noopener">rjc-eiah2026.sciencesconf.org</a></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ ORGANISATEURS ═══════════════════ -->
+<section id="organisateurs">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Comité d'organisation</span>
+      <h2 class="section-title">Organisateurs</h2>
+    </div>
+
+    <table class="org-table" aria-label="Comité d'organisation">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Affiliation</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="org-name">Léo Nebel</div></td>
+          <td><div class="org-affil">LIP6, Sorbonne Université</div></td>
+          <td><div class="org-mail"><a href="mailto:leo.nebel@lip6.fr">leo.nebel@lip6.fr</a></div></td>
+        </tr>
+        <tr>
+          <td><div class="org-name">Chloé Conrad</div></td>
+          <td><div class="org-affil">Université Claude Bernard Lyon 1</div></td>
+          <td><div class="org-mail"><a href="mailto:chloe.conrad@etu.univ-lyon1.fr">chloe.conrad@etu.univ-lyon1.fr</a></div></td>
+        </tr>
+        <tr>
+          <td><div class="org-name">Badmavasan Kirouchenassamy</div></td>
+          <td><div class="org-affil">LIP6, Sorbonne Université</div></td>
+          <td><div class="org-mail"><a href="mailto:badmavasan.kirouchenassamy@lip6.fr">badmavasan.kirouchenassamy@lip6.fr</a></div></td>
+        </tr>
+        <tr>
+          <td><div class="org-name">Maeva Sonny</div></td>
+          <td><div class="org-affil">Université Claude Bernard Lyon 1</div></td>
+          <td><div class="org-mail"><a href="mailto:maeva.sonny@etu.univ-lyon1.fr">maeva.sonny@etu.univ-lyon1.fr</a></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ INSCRIPTION ═══════════════════ -->
+<section id="inscription">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Participation</span>
+      <h2 class="section-title">Inscription</h2>
+    </div>
+
+    <div class="inscription-panel">
+      <div>
+        <h3>Rejoindre le workshop LLM4Ed 2026</h3>
+        <p>
+          L'inscription s'effectue directement via le site officiel des RJC EIAH 2026. La participation est libre et ouverte à toute personne intéressée par les LLMs en éducation, qu'elle soit chercheuse, enseignante, doctorante ou praticienne. Aucune soumission d'article n'est requise pour assister, et aucune expertise technique préalable en LLM n'est nécessaire.
+        </p>
+        <ul class="inscription-checklist">
+          <li>Participation possible sans soumission d'article</li>
+          <li>Ouvert aux novices comme aux experts en LLM</li>
+          <li>Frais d'inscription dans le cadre des RJC EIAH 2026</li>
+          <li>Format participatif favorisant les échanges et la co-construction</li>
+        </ul>
+      </div>
+
+      <div class="inscription-aside">
+        <p>Inscription sur le site officiel de la conférence</p>
+        <a href="https://rjc-eiah2026.sciencesconf.org" target="_blank" rel="noopener" class="btn-gold-lg">
+          S'inscrire — RJC EIAH 2026
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONTACT ═══════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Nous contacter</span>
+      <h2 class="section-title">Contact</h2>
+      <p class="section-lead">Pour toute question relative au workshop, vous pouvez contacter directement l'un des organisateurs.</p>
+    </div>
+
+    <table class="contact-table" aria-label="Contacts du workshop">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Affiliation</th>
+          <th>Courriel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="c-name">Léo Nebel</div></td>
+          <td><div class="c-affil">LIP6, Sorbonne Université</div></td>
+          <td><div class="c-mail"><a href="mailto:leo.nebel@lip6.fr">leo.nebel@lip6.fr</a></div></td>
+        </tr>
+        <tr>
+          <td><div class="c-name">Chloé Conrad</div></td>
+          <td><div class="c-affil">Université Claude Bernard Lyon 1</div></td>
+          <td><div class="c-mail"><a href="mailto:chloe.conrad@etu.univ-lyon1.fr">chloe.conrad@etu.univ-lyon1.fr</a></div></td>
+        </tr>
+        <tr>
+          <td><div class="c-name">Badmavasan Kirouchenassamy</div></td>
+          <td><div class="c-affil">LIP6, Sorbonne Université</div></td>
+          <td><div class="c-mail"><a href="mailto:badmavasan.kirouchenassamy@lip6.fr">badmavasan.kirouchenassamy@lip6.fr</a></div></td>
+        </tr>
+        <tr>
+          <td><div class="c-name">Maeva Sonny</div></td>
+          <td><div class="c-affil">Université Claude Bernard Lyon 1</div></td>
+          <td><div class="c-mail"><a href="mailto:maeva.sonny@etu.univ-lyon1.fr">maeva.sonny@etu.univ-lyon1.fr</a></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <p>
+    <strong>LLM4Ed 2026</strong> — Workshop sur les Grands Modèles de Langage pour l'Éducation<br />
+    Organisé dans le cadre des <a href="https://rjc-eiah2026.sciencesconf.org" target="_blank" rel="noopener">11<sup>es</sup> Rencontres Jeunes Chercheurs en EIAH (RJC EIAH 2026)</a><br />
+    9 – 12 juin 2026 &middot; Grenoble, France
+  </p>
+  <p style="margin-top:1rem;">
+    &copy; 2026 LLM4Ed Workshop &mdash; Tous droits réservés.
+  </p>
+</footer>
+
+</body>
+</html>
