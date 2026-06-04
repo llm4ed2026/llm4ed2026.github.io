@@ -279,7 +279,7 @@
     .about-col p { font-size: .98rem; color: var(--muted); }
 
     /* ── Thématiques ── */
-    /* ── Thématiques ── */
+
     .theme-axe {
       margin-bottom: 3.5rem;
     }
@@ -379,6 +379,52 @@
     }
 
     /* ── Programme ── */
+    .prog-presentations {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+      border-left: 2px solid var(--border);
+      padding-left: 1rem;
+    }
+
+    .prog-presentations li {
+      margin-bottom: 1rem;
+      font-size: .92rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .prog-presentations li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Horizontal connector line */
+    .prog-presentations li::before {
+      content: '';
+      position: absolute;
+      left: -1rem;
+      top: .6rem;
+      width: 10px;
+      height: 2px;
+      background: var(--steel);
+    }
+
+    .pres-title {
+      display: block;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .2rem;
+    }
+
+    .pres-authors {
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .pres-presenter {
+      font-style: italic;
+      color: var(--steel);
+    }
     .programme-table {
       width: 100%;
       border-collapse: collapse;
@@ -900,7 +946,32 @@
         <tr>
           <td class="prog-dur">1 heure</td>
           <td><div class="prog-title-cell">Présentations de travaux</div></td>
-          <td><div class="prog-desc-cell">Présentations courtes issues des soumissions sélectionnées, suivies chacune d'une brève période de questions.</div></td>
+          <td><div class="prog-desc-cell">
+              Présentations courtes issues des soumissions sélectionnées, suivies chacune d'une brève période de questions.
+              
+              <ul class="prog-presentations">
+                <li>
+                  <span class="pres-title">Smart-objects, action conjointe et rétroactions adaptatives</span>
+                  <span class="pres-authors">Idrissa Seck</span> — 
+                  <span class="pres-presenter">Présenté par Idrissa Seck</span>
+                </li>
+                <li>
+                  <span class="pres-title">Potentiel et limites des assistants IA pour la conception d’exercices de programmation</span>
+                  <span class="pres-authors">Julien Ribon</span> — 
+                  <span class="pres-presenter">Présenté par Julien Ribon</span>
+                </li>
+                <li>
+                  <span class="pres-title">Les LLMs perpétuent-ils les stéréotypes dans l’éducation ?</span>
+                  <span class="pres-authors">Nafissa Benali, Paul Juliard, Julien Tuân Tu Vignoud, Jibril Frej, Jade Maï Cock</span> — 
+                  <span class="pres-presenter">Présenté par Jade Maï Cock</span>
+                </li>
+                <li>
+                  <span class="pres-title">Comment acculturer ses élèves au sujet de l’IA sans être expert du sujet ?</span>
+                  <span class="pres-authors">Camille Miele et Christophe Reffay</span> — 
+                  <span class="pres-presenter">Présenté par Christophe Reffay</span>
+                </li>
+              </ul>
+            </div></td>
         </tr>
         <tr>
           <td class="prog-dur">15 min</td>
@@ -916,12 +987,7 @@
           <td><div class="prog-desc-cell">Présentation d'une revue systématique portant sur l'utilisation de l'IA et les méthodes d'évaluation dans les environnements éducatifs.</div></td>
         </tr>
         <tr>
-          <td class="prog-dur">5 min</td>
-          <td><div class="prog-title-cell">Questions et discussion</div></td>
-          <td><div class="prog-desc-cell">Échanges avec la salle sur les résultats et implications de la revue systématique.</div></td>
-        </tr>
-        <tr>
-          <td class="prog-dur">~40 min</td>
+          <td class="prog-dur">~45 min</td>
           <td><div class="prog-title-cell">Ateliers en sous-groupes</div></td>
           <td><div class="prog-desc-cell">Les participants se répartissent en sous-groupes selon le nombre de présents. Chaque groupe travaille sur une thématique de discussion, puis les groupes se succèdent à tour de rôle pour partager leurs réflexions. Chaque groupe produit une mind map collaborative qui servira de support à la restitution plénière.</div></td>
         </tr>
